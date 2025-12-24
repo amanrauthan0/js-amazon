@@ -1,13 +1,14 @@
-import {cart,deletefromcart} from'../data/cart.js';
+import {cart,deletefromcart,updatedeliveryoption} from'../data/cart.js';
 import { products } from '../data/product.js';
 import dayjs from'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { deliveryoptions } from '../data/deliveryoptions.js';
 
-let matchingproduct;
 let cartsummaryHtml='';
 
 cart.forEach((cartitem)=>{
     const productId =cartitem.productId;
+
+    let matchingproduct;
 
     products.forEach((product)=>{
         if(product.id===productId){
@@ -38,10 +39,10 @@ cart.forEach((cartitem)=>{
 
               <div class="cart-item-details">
                 <div class="product-name">
-                  ${matchingproduct.name};
+                  ${matchingproduct.name}
                 </div>
                 <div class="product-price">
-                  $${(matchingproduct.priceCents/100).toFixed(2)};
+                  $${(matchingproduct.priceCents/100).toFixed(2)}
                 </div>
                 <div class="product-quantity">
                   <span>
@@ -83,7 +84,9 @@ function deliveryoptionsHtml(matchingproduct,cartitem){
     const ischecked=deliveryoption.id === cartitem.deliveryOptionId;
 
     html+=`
-    <div class="delivery-option">
+    <div class="delivery-option js-delivery-option"
+    data-product-id="${matchingproduct.id}"
+    data-delivery-option-id="${deliveryoption.id}">
                   <input type="radio"
                     ${ischecked?'checked':''}
                     class="delivery-option-input"
@@ -111,5 +114,15 @@ document.querySelectorAll('.js-delete-link')
     const container=document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
   })
+});
+
+document.querySelectorAll('.js-delivery-option').forEach((element)=>{
+  element.addEventListener('click',()=>{
+    console.log("click");
+    const {productId,deliveryOptionId} =element.dataset;
+    updatedeliveryoption(productId,deliveryOptionId);
+    
+  })
 })
+
 console.log(cart);
