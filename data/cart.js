@@ -1,5 +1,10 @@
 import { renderpaymentsummary } from "../scripts/checkout/paymentsummary.js";
-export let cart=JSON.parse(localStorage.getItem('cart'));
+
+export let cart;
+loadfromstorage();
+
+export function loadfromstorage() {
+  cart=JSON.parse(localStorage.getItem('cart'));
 
   if(cart.length===0){
     cart=[{
@@ -14,7 +19,7 @@ export let cart=JSON.parse(localStorage.getItem('cart'));
 
   localStorage.setItem('cart', JSON.stringify(cart));
 
-  }
+  }}
 
 function saveToStorage(){
   localStorage.setItem('cart', JSON.stringify(cart))

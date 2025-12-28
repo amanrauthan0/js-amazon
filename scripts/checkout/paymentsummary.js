@@ -11,9 +11,9 @@ function cartquantity() {
 }
 export function renderpaymentsummary() {
   let html = '';
-  let itemprice = Number(itemtotal().toFixed(2));
+  let itemprice = Number(itemtotal());
   let shippingprice = Number(shippingtotal());
-  let totalprice = Number(itemprice + shippingprice);
+  let totalprice = Number((itemprice + shippingprice).toFixed(2));
   let tax = Number((totalprice / 10).toFixed(2));
   let finalprice = (totalprice + tax).toFixed(2);
   console.log(finalprice);
