@@ -1,7 +1,7 @@
 import {cart,addtocart} from'../data/cart.js';
 import {products} from'../data/product.js';
-
-
+import { renderdeliveryoption } from './checkout/ordersummary.js';
+updatecartquantity();
 let productsHTML='';
 
 products.forEach((products)=>{
@@ -42,8 +42,6 @@ products.forEach((products)=>{
             </select>
           </div>
 
-          
-
           <div class="added-to-cart">
             <img src="images/icons/checkmark.png">
             Added
@@ -60,19 +58,21 @@ const maincode=document.querySelector('.js-products-grid')
 maincode.innerHTML=productsHTML;
 
 
-function updatecartquantity(){
+  function updatecartquantity(){
   let cartquantity=0;
     cart.forEach((cartitem)=>{
       cartquantity+=cartitem.quantity;
     })
     document.querySelector('.cart-quantity').innerHTML=`${cartquantity}`;
 }
+
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
   button.addEventListener('click',()=>{
     const productId=button.dataset.productId;
     addtocart(productId);
-    updatecartquantity();
     
+    updatecartquantity();
+    renderdeliveryoption();
     console.log(cart);
   })
 })
