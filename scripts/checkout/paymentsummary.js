@@ -3,13 +3,10 @@ import { deliveryoptions } from '../../data/deliveryoptions.js';
 import { getproduct } from '../../data/product.js';
 
 function cartquantity() {
-
   let cartquantity = 0;
-
   cart.forEach((cartitem) => {
     cartquantity += cartitem.quantity;
   })
-  
   return cartquantity;
 }
 export function renderpaymentsummary() {
@@ -19,7 +16,7 @@ export function renderpaymentsummary() {
   let totalprice = Number((itemprice + shippingprice).toFixed(2));
   let tax = Number((totalprice / 10).toFixed(2));
   let finalprice = (totalprice + tax).toFixed(2);
-  console.log(finalprice);
+  console.log(itemprice);
 
 
   html += `
@@ -61,12 +58,14 @@ export function renderpaymentsummary() {
 
 
 function itemtotal() {
-  let itemtotal = 0;
+  let itemprice = 0;
   cart.forEach(element => {
-    let product = getproduct(element.productId);
-    itemtotal += ((product.priceCents / 100).toFixed(2)) * element.quantity;
+    const product = getproduct(element.productId);
+    if (product) {
+      itemprice += (product.priceCents * element.quantity) / 100;
+    }
   });
-  return itemtotal;
+  return Number(itemprice.toFixed(2));
 }
 
 function shippingtotal() {

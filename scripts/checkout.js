@@ -1,7 +1,8 @@
 import { renderdeliveryoption } from './checkout/ordersummary.js';
 import { renderpaymentsummary } from './checkout/paymentsummary.js';
-import '../data/backend-practice.js';
+import { totalitems } from './checkout/ordersummary.js';
 
 
 renderdeliveryoption();
+totalitems();
 renderpaymentsummary();

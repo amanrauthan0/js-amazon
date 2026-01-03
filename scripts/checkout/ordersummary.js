@@ -4,6 +4,7 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { deliveryoptions } from '../../data/deliveryoptions.js';
 import { renderpaymentsummary } from './paymentsummary.js';
 
+
 export function renderdeliveryoption() {
   let cartsummaryHtml = '';
 
@@ -106,7 +107,10 @@ export function renderdeliveryoption() {
     return html;
   }
 
-  document.querySelector('.js-order-summary').innerHTML = cartsummaryHtml;
+  const orderSummaryElement = document.querySelector('.js-order-summary');
+  if (orderSummaryElement) {
+    orderSummaryElement.innerHTML = cartsummaryHtml;
+  }
 
   document.querySelectorAll('.js-delete-link')
     .forEach((link) => {
@@ -120,7 +124,6 @@ export function renderdeliveryoption() {
 
   document.querySelectorAll('.js-delivery-option').forEach((element) => {
     element.addEventListener('click', () => {
-      console.log("click");
       const { productId, deliveryOptionId } = element.dataset;
       updatedeliveryoption(productId, deliveryOptionId);
       renderdeliveryoption();
@@ -128,3 +131,13 @@ export function renderdeliveryoption() {
     })
   })
 }
+
+export function totalitems() {
+  const totalitem = cart.length;
+  const returnLink = document.querySelector('.return-to-home-link');
+  if (returnLink) {
+    returnLink.innerHTML = `${totalitem} items`;
+  }
+}
+
+
