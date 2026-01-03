@@ -3,10 +3,13 @@ import { deliveryoptions } from '../../data/deliveryoptions.js';
 import { getproduct } from '../../data/product.js';
 
 function cartquantity() {
+
   let cartquantity = 0;
+
   cart.forEach((cartitem) => {
     cartquantity += cartitem.quantity;
   })
+  
   return cartquantity;
 }
 export function renderpaymentsummary() {
