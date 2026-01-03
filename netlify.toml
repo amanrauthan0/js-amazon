@@ -1,0 +1,7 @@
+# Netlify configuration file
+# Redirects the root URL to amazon.html
+
+[[redirects]]
+  from = "/"
+  to = "/amazon.html"
+  status = 200
